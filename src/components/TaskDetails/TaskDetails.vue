@@ -1,22 +1,30 @@
 <template>
-    <div class="task">
-        <h3>{{task.title}}</h3>
-        <div class="icons">
-        </div>
+  <div class="task">
+    <h3>{{ task.title }}</h3>
+    <div class="icons">
+      <i class="material-icons" 
+      @click="taskStore.deleteTask(task.id)"
+        >delete</i>
+      <i class="material-icons fav"
+        :class="{active: task.isFav}"
+       @click="taskStore.toggleFav(task.id)"
+        >favorite</i>
     </div>
-    
+  </div>
 </template>
 
 <script>
+import { useTaskStore } from "../../stores/TasksStore";
+// import {ref} from "vue";
 export default {
-    name:'TaskDetails',
-    props: {
-        task: Object,
-    },
-    setup () {
+  name: "TaskDetails",
+  props: {
+    task: Object,
+  },
+  setup() {
+    const taskStore = useTaskStore();
 
-        return {}
-    }
-}
+    return { taskStore };
+  },
+};
 </script>
-

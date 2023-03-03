@@ -1,0 +1,24 @@
+{
+    "tasks": [
+        {
+            "id": 1,
+            "title": "Finalizar banner",
+            "isFav": false
+        },
+        {
+            "id": 2,
+            "title": "Seguir curso",
+            "isFav": false
+        },
+        {
+            "id": 3,
+            "title": "Banner curso",
+            "isFav": false
+        },
+        {
+            "id": 4,
+            "title": "Terminar Finish",
+            "isFav": false
+        }
+    ]
+}
