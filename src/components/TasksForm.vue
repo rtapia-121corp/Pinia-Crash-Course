@@ -18,8 +18,8 @@ export default {
         const taskStore = useTaskStore();
         const newTask = ref('');
         
-        // call service 
-        taskStore.getTasks();
+        // // call service 
+        // taskStore.getTasks();
 
         const handleSubmit = () => {
             if(newTask.value.length > 0 ){

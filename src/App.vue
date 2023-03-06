@@ -8,9 +8,7 @@
     <!-- new task form -->
     <div class="form-task">
       <TasksForm />
-      
     </div>
-
 
     <!-- filter -->
     <nav class="filter">
@@ -20,38 +18,46 @@
 
     <!-- loading  -->
 
-    <div class="loading" v-if="taskStore.loading">Loading tasks...</div>
+    <div class="loading" v-if="loading">Loading tasks...</div>
 
     <!-- task list -->
     <div class="task-list" v-if="filter === 'all'">
-      <p>Your have {{ taskStore.totalCount }} tasks left to do!</p>
-      <div v-for="task in taskStore.tasks" :key="task.id">
+      <p>Your have {{ totalCount }} tasks left to do!</p>
+      <div v-for="task in tasks" :key="task.id">
         <TaskDetails :task="task" />
       </div>
     </div>
     <div class="task-list" v-if="filter === 'favs'">
-      <p>Your have {{ taskStore.favCount }} favs left to do!</p>
+      <p>Your have {{ favCount }} favs left to do!</p>
       <p>Favs tasks</p>
-      <div v-for="task in taskStore.favs" :key="task.id">
-       <TaskDetails :task="task" />
+      <div v-for="task in favs" :key="task.id">
+        <TaskDetails :task="task" />
       </div>
     </div>
+
+    <button @click="taskStore.$reset" class="btn-reset">Reset states</button>
   </main>
 </template>
 
 <script>
-import  TaskDetails  from './components/TaskDetails';
-import TasksForm from './components/TasksForm.vue';
+import TaskDetails from "./components/TaskDetails";
+import TasksForm from "./components/TasksForm.vue";
 import { useTaskStore } from "./stores/TasksStore";
 
-import {ref} from "vue";
+import { ref } from "vue";
+import { storeToRefs } from "pinia";
 export default {
-  components: { TaskDetails,TasksForm },
+  components: { TaskDetails, TasksForm },
   setup() {
     const taskStore = useTaskStore();
-    const filter = ref('all');
+    const { tasks, loading, favs, totalCount, favCount } =
+      storeToRefs(taskStore);
+    // call service
+    taskStore.getTasks();
 
-    return { taskStore,filter };
+    const filter = ref("all");
+
+    return { taskStore, filter, tasks, loading, favs, totalCount, favCount };
   },
 };
 </script>
